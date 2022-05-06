@@ -1,3 +1,5 @@
+./build.sh
+
 docker-compose build kong
 docker-compose up -d kong-db
 
@@ -15,4 +17,8 @@ sleep 30s
 # starting keycloak
 docker-compose up -d keycloak-db
 docker-compose up -d keycloak
+
+docker-compose up -d desk-admin-ui
+docker-compose up -d wireless-digital-desk-server
+
 docker-compose ps

@@ -655,7 +655,8 @@
       "clientAuthenticatorType": "client-secret",
       "secret": "**********",
       "redirectUris": [
-        "/api/*"
+        "/api/*",
+        "/web/*"
       ],
       "webOrigins": [],
       "notBefore": 0,

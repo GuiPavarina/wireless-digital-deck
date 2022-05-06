@@ -91,4 +91,20 @@ services:
     depends_on:
       - keycloak-db
 
+  desk-admin-ui:
+    container_name: desk-admin-ui
+    image: desk-admin-ui:latest
+    networks:
+      - kong-net
+    ports:
+      - "9000:80"
+  
+  wireless-digital-desk-server:
+    container_name: wireless-digital-desk-server
+    image: wireless-digital-desk-server:latest
+    networks:
+      - kong-net
+    ports:
+      - "9001:8080"
+
 
