@@ -1,6 +1,14 @@
+admin_route_id=$(curl http://localhost:8001/routes | jq '.data[] | [.paths[0], .id] | join("|")' | grep "/admin" | sed 's/\/admin|//g' | sed 's/\"//g')
+
+echo $admin_route_id
+
+api_route_id=$(curl http://localhost:8001/routes | jq '.data[] | [.paths[0], .id] | join("|")' | grep "/api/v1" | sed 's/\/api\/v1|//g' | sed 's/\"//g')
+
+echo $api_route_id
+
 source ../config.sh
 
-curl -X POST http://localhost:8001/routes/cec713fc-02e1-4c5e-83d7-f83b8aefc6d6/plugins \
+curl -X POST http://localhost:8001/routes/${admin_route_id}/plugins \
   -d name=oidc \
   -d config.client_id=${CLIENT_ID} \
   -d config.client_secret=${CLIENT_SECRET} \
@@ -9,7 +17,7 @@ curl -X POST http://localhost:8001/routes/cec713fc-02e1-4c5e-83d7-f83b8aefc6d6/p
   -d config.discovery=http://${HOST_IP}:8180/auth/realms/${REALM}/.well-known/openid-configuration \
   | python3 -mjson.tool
 
-curl -X POST http://localhost:8001/routes/c17d1fbc-15ef-4834-ad99-65a291a20fd5/plugins \
+curl -X POST http://localhost:8001/routes/${api_route_id}/plugins \
   -d name=oidc \
   -d config.client_id=${CLIENT_ID} \
   -d config.client_secret=${CLIENT_SECRET} \
