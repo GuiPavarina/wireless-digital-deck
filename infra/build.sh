@@ -1,5 +1,6 @@
 cd ../frontend/desk-admin-ui/
 
+npm i
 ng build --prod
 
 docker build -t desk-admin-ui:latest .

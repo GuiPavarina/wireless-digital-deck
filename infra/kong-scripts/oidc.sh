@@ -6,7 +6,7 @@ api_route_id=$(curl http://localhost:8001/routes | jq '.data[] | [.paths[0], .id
 
 echo $api_route_id
 
-source ../config.sh
+source ../config.rc
 
 curl -X POST http://localhost:8001/routes/${admin_route_id}/plugins \
   -d name=oidc \

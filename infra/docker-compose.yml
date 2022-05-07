@@ -25,9 +25,7 @@ services:
 
   kong:
     container_name: kong
-    build:
-      context: ./kong
-    image: kong-oidc:latest
+    image: guipavarina/kong:1.0.0
     depends_on:
       - kong-db
     networks:

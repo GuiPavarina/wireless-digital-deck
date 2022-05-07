@@ -3,9 +3,9 @@ FROM kong:alpine
 LABEL description="Alpine + Kong  + kong-oidc plugin"
 
 USER root
-RUN apk update && apk add curl git gcc musl-dev
+RUN apk update && apk add curl git gcc musl-dev openssl-dev unzip
 RUN luarocks install luaossl OPENSSL_DIR=/usr/local/kong CRYPTO_DIR=/usr/local/kong
 RUN luarocks install --pin lua-resty-jwt
-RUN luarocks install kong-oidc
+RUN luarocks install kong-oidc 1.0.1
 
 USER kong

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 	
-	private final static String HEADER_KEY = "x-userinfo";
-	private final static String JWT_KEY = "username";
+	private static final String HEADER_KEY = "x-userinfo";
+	private static final String JWT_KEY = "username";
 
 	public Optional<String> getUsernameFromHeaders(Map<String, String> headers) {
 			if(!headers.containsKey("x-userinfo")) {

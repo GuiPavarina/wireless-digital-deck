@@ -1,5 +1,6 @@
 const express = require('express');
 const apiRouter = express.Router();
+const status = require('http-status-codes');
 
 const { exec } = require('child_process');
 const { request } = require('undici');
@@ -10,7 +11,6 @@ const apiVersion = '/v0';
 /**
  * Environment
  */
-const port = process.env.PORT;
 const deckEndpoint = process.env.DECK_ENDPOINT;
 
 const database = require('../../db/inMemoryDb');
@@ -20,44 +20,18 @@ apiRouter.get(`${apiVersion}/login/:hash`, async (req, res) => {
     const { body } = await request(`${deckEndpoint}/${hash}`);
     const shortcuts = await body.json();
     database.insertAll(shortcuts);
-    res.status(200).json(shortcuts);
+    res.status(status.StatusCodes.OK).json(shortcuts);
 });
 
 apiRouter.get(`${apiVersion}/shortcut/:id`, (req, res) => {
     const { id } = req.params;
     const shortcut = database.findById(id);
     if (shortcut) {
-        console.table(shortcut);
         exec(`wmctrl -x -a ${shortcut.app}`);
         robot.keyTap(shortcut.key, shortcut.modifiers);
-        res.status(200);
+        res.status(status.StatusCodes.OK).json({ message: "Shortcut performed" });
     } else {
-        res.status(404).json({ error: "Shortcut not found" });
-    }
-});
-
-apiRouter.get(`/test/:hash`, (req, res) => {
-    const { hash } = req.params;
-    const shortcuts = [
-        {
-            id: 0,
-            key: 'm',
-            app: 'Discord',
-            name: 'Mute',
-            modifiers: ['control', 'shift']
-        },
-        {
-            id: 1,
-            key: 'm',
-            app: 'Teams',
-            name: 'Mute',
-            modifiers: ['control', 'shift']
-        }
-    ];
-    if (hash === "abc") {
-        res.status(200).json(shortcuts);
-    } else {
-        res.status(403).json({ error: "Invalid hash" });
+        res.status(status.StatusCodes.NOT_FOUND).json({ error: "Shortcut not found" });
     }
 });
 
