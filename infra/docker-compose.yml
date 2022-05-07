@@ -86,6 +86,7 @@ services:
       KEYCLOAK_LOGLEVEL: DEBUG
     ports:
       - "8180:8080"
+      - "8445:8443"
     depends_on:
       - keycloak-db
 
