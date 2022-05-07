@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.puc.wireless.digital.desk.user.controllers.dto.UserInfo;
 import com.puc.wireless.digital.desk.user.service.UserService;
 
-@RestController
+@RestController("/api/v1")
 public class UserController {
 
 	@Autowired

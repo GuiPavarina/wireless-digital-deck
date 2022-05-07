@@ -656,7 +656,7 @@
       "secret": "**********",
       "redirectUris": [
         "/api/*",
-        "/web/*"
+        "/admin/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
