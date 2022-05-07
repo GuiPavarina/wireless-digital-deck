@@ -105,4 +105,12 @@ services:
     ports:
       - "9001:8080"
 
+  wireless-digital-desk-shared-server:
+    container_name: wireless-digital-desk-shared-server
+    image: wireless-digital-desk-shared-server
+    networks:
+      - kong-net
+    ports:
+      - "9002:8009"
+
 

@@ -11,3 +11,6 @@ mvn clean install
 
 docker build -t wireless-digital-desk-server:latest .
 
+cd ../wireless-digital-desk-shared
+
+docker build -t wireless-digital-desk-shared-server:latest .

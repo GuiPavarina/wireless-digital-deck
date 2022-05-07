@@ -29,3 +29,16 @@ stopAll.sh -> para a aplicação e remove os containers e os volumes
 ### LINKs
 
 [Keycloak Admin Console](http://localhost:8180)
+
+### Exportar variaveis de ambiente
+
+```bash
+# para dev
+export HOST_IP=`ip address show dev docker0 | grep "inet " \
+| grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' \
+| head -1`
+
+# do keycloak
+export CLIENT_SECRET=""
+
+```
