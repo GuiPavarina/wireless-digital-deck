@@ -1,13 +1,6 @@
-const knex = require('knex')({
-    client: 'pg',
-    debug: false,
-    connection: {
-        connectionString: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false },
-    }
-});
+const db = require('./configuration');
 
 module.exports = {
-    findAll: () => knex.select('*').from('hashes'),
-    findByHash: (hash) => knex.select('hash_user').from('hashes').where('unique_hash', '=', hash),
+    findAll: () => db.select('*').from('hashes'),
+    findByHash: (hash) => db.select('hash_user').from('hashes').where('unique_hash', '=', hash),
 }

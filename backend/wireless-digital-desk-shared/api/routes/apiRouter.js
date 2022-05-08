@@ -2,7 +2,6 @@ const express = require('express');
 const apiRouter = express.Router();
 const status = require('http-status-codes');
 
-const apiVersion = '/v0';
 const hashRepository = require('../../db/hashRepository');
 const shortcutRepository = require('../../db/shortcutRepository');
 
