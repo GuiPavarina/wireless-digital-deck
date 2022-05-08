@@ -20,5 +20,6 @@ docker-compose up -d keycloak
 
 docker-compose up -d desk-admin-ui
 docker-compose up -d wireless-digital-desk-server
+docker-compose up -d wireless-digital-desk-shared-server
 
 docker-compose ps
