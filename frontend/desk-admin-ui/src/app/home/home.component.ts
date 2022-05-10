@@ -9,7 +9,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 })
 export class HomeComponent implements OnInit {
 
-  userinfo: UserInfo = null;
+  userinfo: UserInfo;
 
   shortcutForm: FormGroup = null;
 
@@ -41,11 +41,11 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  onCheckboxChange(e) {
+  onCheckChange(e) {
     const modifiersForm: FormArray = this.shortcutForm.get('modifiers') as FormArray;
 
     if (e.target.checked) {
-      modifiersForm.push(new FormControl(e.target.shortcut));
+      modifiersForm.push(new FormControl(e.target));
 
     }  else {
       let i: number = 0;
