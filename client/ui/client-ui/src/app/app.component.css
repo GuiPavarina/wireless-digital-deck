@@ -1,0 +1,4 @@
+.clickable-div :hover {
+    background-color: rgb(39, 103, 243);
+    cursor: pointer;
+}
