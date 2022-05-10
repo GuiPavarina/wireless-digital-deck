@@ -12,30 +12,41 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.puc.wireless.digital.desk.hash.domain.Hash;
+import com.puc.wireless.digital.desk.hash.services.HashService;
 import com.puc.wireless.digital.desk.user.controllers.dto.UserInfo;
 import com.puc.wireless.digital.desk.user.service.UserService;
 
-@RestController("/api/v1")
+@RestController
 public class UserController {
 
-	@Autowired
-	private UserService userService;
-	
-	private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
-	
-	@GetMapping("/userinfo")
-	public ResponseEntity<UserInfo> getUserinfo(
-		@RequestHeader Map<String, String> headers) {
-		LOG.info("Getting user info");
-		
-		Optional<String> usernameOpt = userService.getUsernameFromHeaders(headers);
-		
-		if(usernameOpt.isEmpty()) {
-			LOG.info("Username not found");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
-		
-		return ResponseEntity.ok(new UserInfo(usernameOpt.get()));
-	}
-	
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private HashService hashService;
+
+    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
+
+    @GetMapping("/userinfo")
+    public ResponseEntity<UserInfo> getUserinfo(@RequestHeader Map<String, String> headers) {
+        LOG.info("Getting user info");
+
+        Optional<String> usernameOpt = userService.getUsernameFromHeaders(headers);
+
+        if (usernameOpt.isEmpty()) {
+            LOG.info("Username not found");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        final UserInfo userInfo = new UserInfo(usernameOpt.get());
+        final String username = userInfo.getUsername();
+        LOG.info("Getting hashes infos -> " + username);
+        
+        final Optional<Hash> hash = hashService.findHashFor(username);
+        userInfo.setHash(hash.get().getHash());
+
+        return ResponseEntity.ok(new UserInfo(usernameOpt.get()));
+    }
+
 }

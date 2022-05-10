@@ -2,27 +2,32 @@ package com.puc.wireless.digital.desk.user.controllers.dto;
 
 public class UserInfo {
 
-	private String username;
-	
-	public UserInfo() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public UserInfo(String username) {
-		this.username = username;
-	}
+    private String username;
+    private String hash;
 
-	public String getUsername() {
-		return username;
-	}
+    public UserInfo(String username) {
+        this.username = username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	@Override
-	public String toString() {
-		return "UserInfo [username=" + username + "]";
-	}
-	
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo [username=" + username + ", hash=" + hash + "]";
+    }
+
 }
