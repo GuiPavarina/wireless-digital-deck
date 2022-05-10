@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { UserInfo, UserService } from '../services/user.service';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -8,19 +9,60 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  user: string = ""
+  userinfo: UserInfo = null;
 
-  constructor(private http: HttpClient) { }
+  shortcutForm: FormGroup = null;
+
+  modifiers: any = [
+    { name: 'Ctrl', shortcut: 'CONTROL'},
+    { name: 'Alt', shortcut: 'ALT'}
+  ]
+
+  constructor(
+    private userService: UserService,
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
 
-    this.http.get('/api/v1/userinfo').subscribe((res: any) => {
-      console.log(res)
-      this.user = res.username;
-    }, (err) => {
-      console.log(err)
-    })
+    // TODO
+    // Load list of shorcuts at the start
 
+    this.shortcutForm = this.formBuilder.group({
+      key: ['', Validators.required],
+      applicationName: [''],
+      modifiers: this.formBuilder.array([
+        this.formBuilder.control('')
+      ])
+    });
+
+    this.userService.getUserInfo().subscribe(userinfo => {
+      this.userinfo = userinfo;
+    })
+  }
+
+  onCheckboxChange(e) {
+    const modifiersForm: FormArray = this.shortcutForm.get('modifiers') as FormArray;
+
+    if (e.target.checked) {
+      modifiersForm.push(new FormControl(e.target.shortcut));
+
+    }  else {
+      let i: number = 0;
+  
+      modifiersForm.controls.forEach((ctrl: FormControl) => {
+        if(ctrl.value.shortcut == e.target.shortcut) {
+          modifiersForm.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+
+  }
+
+  onSubmit() {
+    console.log('submit')
   }
 
 }

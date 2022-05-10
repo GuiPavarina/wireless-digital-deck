@@ -1,1 +1,49 @@
-<p>{{user}}</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="#">Wireless Digital Desk</a>
+        <div class="container-fluid">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item">
+                    <a>O seu HASH é: {{userinfo.hash}}</a>
+                </li>
+            </ul>
+            <div class="">{{userinfo.username}}</div>
+        </div>
+    </div>
+
+</nav>
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-sm-12 col-md-6">
+            <form [formGroup]="shortcutForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="applicationName">Nome da Aplicação</label>
+                    <input type="text" class="form-control" formControlName="applicationName" id="applicationName"
+                        placeholder="Teams ou Discord">
+                </div>
+                <div class="form-group">
+                    <label for="key">Tecla</label>
+                    <input type="text" class="form-control" formControlName="key" id="key"
+                        placeholder="Tecla">
+                </div>
+                <div *ngFor="let choice of modifiers; let i=index" class="form-group">
+                    <label>
+                      <input type="checkbox" [value]="choice.name" (change)="onCheckChange($event)">
+                      {{choice.shortcut}}
+                    </label>
+                  </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" value="">Salvar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-sm-12 col-md-6">
+
+        </div>
+
+    </div>
+
+</div>

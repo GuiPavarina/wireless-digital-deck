@@ -15,7 +15,7 @@ public class UserService {
 	private static final String JWT_KEY = "username";
 
 	public Optional<String> getUsernameFromHeaders(Map<String, String> headers) {
-			if(!headers.containsKey("x-userinfo")) {
+			if(!headers.containsKey(HEADER_KEY)) {
 				return Optional.empty();
 			}
 			
@@ -23,7 +23,7 @@ public class UserService {
 	        String decodedJwt = new String(bytes, StandardCharsets.UTF_8);
 			JSONObject obj = new JSONObject(decodedJwt);
 			
-			if(obj.has("username")) {
+			if(obj.has(JWT_KEY)) {
 				return Optional.of(obj.get(JWT_KEY).toString());
 			} 
 			return Optional.empty();
