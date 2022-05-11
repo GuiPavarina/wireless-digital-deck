@@ -3,10 +3,10 @@
         <a class="navbar-brand" href="#">Wireless Digital Desk</a>
         <ul class="navbar-nav ml-5 me-auto mb-2 mb-sm-0">
             <li class="nav-item">
-                <div class="hash-text">O seu HASH é: {{userinfo.hash}</div>
+                <div class="hash-text" *ngIf="userinfo">O seu HASH é: {{userinfo.hash}}</div>
             </li>
         </ul>
-        <div class="hash-text">{{userinfo.username}}</div>
+        <div class="hash-text" *ngIf="userinfo">{{userinfo.username}}</div>
     </div>
 
 </nav>
@@ -14,8 +14,13 @@
 
     <div class="row">
 
-        <div class="col-sm-12 col-md-6">
+        <div class="col-sm-12 col-md-6 mt-3">
             <form [formGroup]="shortcutForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="applicationName">Nome do Atalho</label>
+                    <input type="text" class="form-control" formControlName="shortcutName" id="shortcutName"
+                        placeholder="Nome do atalho">
+                </div>
                 <div class="form-group">
                     <label for="applicationName">Nome da Aplicação</label>
                     <input type="text" class="form-control" formControlName="applicationName" id="applicationName"
@@ -25,9 +30,13 @@
                     <label for="key">Tecla</label>
                     <input type="text" class="form-control" formControlName="key" id="key" placeholder="Tecla">
                 </div>
+                <div class="form-group">
+                    <label for="key">Ordem</label>
+                    <input type="text" class="form-control" formControlName="order" id="order" placeholder="Ordem do atalho">
+                </div>
                 <div *ngFor="let choice of modifiers; let i=index" class="form-group">
                     <label>
-                        <input type="checkbox" [value]="choice.name" (change)="onCheckChange($event)">
+                        <input type="checkbox" [value]="choice.shortcut" (change)="onCheckChange($event)">
                         {{choice.shortcut}}
                     </label>
                 </div>
@@ -37,8 +46,26 @@
             </form>
         </div>
 
-        <div class="col-sm-12 col-md-6">
-
+        <div class="col-sm-12 col-md-6 mt-3">
+            <div class="row">
+                <div class="col-md-6" *ngFor="let shortcut of shortcuts;">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                      <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">{{shortcut.applicationName}}</h4>
+                      </div>
+                      <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                          <li><strong>Ordem do atalho: </strong>{{shortcut.order}}</li>
+                          <li><strong>Modificadores do atalho: </strong>{{shortcut.modifiers}}</li>
+                          <li><strong>Tecla do atalho: </strong>{{shortcut.key}}</li>
+                          <li><strong>Nome da aplicação do atalho: </strong>{{shortcut.applicationName}}</li>
+                        </ul>
+                        <button type="button" (click)="remove(shortcut.order)" class="w-100 btn btn-lg btn-outline-danger">Remover</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
 
     </div>

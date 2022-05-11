@@ -46,7 +46,7 @@ public class UserController {
         final HashDto hash = hashService.findHashFor(username);
         userInfo.setHash(hash.getHash());
 
-        return ResponseEntity.ok(new UserInfo(usernameOpt.get()));
+        return ResponseEntity.ok(userInfo);
     }
 
 }

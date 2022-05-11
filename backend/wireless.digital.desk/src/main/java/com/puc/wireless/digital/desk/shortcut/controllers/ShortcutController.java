@@ -91,14 +91,14 @@ public class ShortcutController {
     }
 
     @DeleteMapping("/shortcut")
-    public ResponseEntity<String> deleteShortcut(@RequestHeader Map<String, String> headers, @RequestParam Long order) {
+    public ResponseEntity<?> deleteShortcut(@RequestHeader Map<String, String> headers, @RequestParam Long order) {
         final String userName = getAuthenticatedUserName(headers);
         if (userName.isEmpty()) {
             LOG.info("Username not found");
             return ResponseEntity.badRequest().build();
         }
         service.removeShortcut(userName, order);
-        return ResponseEntity.ok("Removed");
+        return ResponseEntity.noContent().build();
     }
 
 }
