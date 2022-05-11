@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 import com.puc.wireless.digital.desk.hash.domain.Hash;
-import com.puc.wireless.digital.desk.hash.repository.HashRepository;
+import com.puc.wireless.digital.desk.hash.repositories.HashRepository;
+import com.puc.wireless.digital.desk.hash.services.output.HashDto;
 
 @Service
 public class HashService {
@@ -20,20 +21,20 @@ public class HashService {
     private static final Random RANDOM = new Random();
     private static final int MAX_HASH_CHAR_LENGTH = 6;
 
-    public List<Hash> listAllHashes() {
-        return repository.findAll();
+    public List<HashDto> listAllHashes() {
+        return HashDto.toListOfDto(repository.findAll());
     }
 
-    public Optional<Hash> findHashFor(final String user) {
+    public HashDto findHashFor(final String user) {
         Optional<Hash> found = repository.findByUser(user);
         if (found.isPresent()) {
-            return found;
+            return HashDto.toDto(found.get());
         }
         Hash hash = new Hash();
         hash.setUser(user);
         hash.setHash(generateHash(user));
         repository.save(hash);
-        return Optional.of(hash);
+        return HashDto.toDto(hash);
     }
 
     private String generateHash(final String user) {

@@ -1,5 +1,7 @@
 package com.puc.wireless.digital.desk.hash.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "hashes")
-public class Hash {
+public class Hash implements Serializable {
+
+    /**
+     * Default Generated Serial Version UID
+     */
+    private static final long serialVersionUID = -3154742323549792415L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "HASH_ID_SEQ")

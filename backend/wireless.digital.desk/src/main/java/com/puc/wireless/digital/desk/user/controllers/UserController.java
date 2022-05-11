@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.puc.wireless.digital.desk.hash.domain.Hash;
 import com.puc.wireless.digital.desk.hash.services.HashService;
+import com.puc.wireless.digital.desk.hash.services.output.HashDto;
 import com.puc.wireless.digital.desk.user.controllers.dto.UserInfo;
 import com.puc.wireless.digital.desk.user.service.UserService;
 
@@ -42,9 +42,9 @@ public class UserController {
         final UserInfo userInfo = new UserInfo(usernameOpt.get());
         final String username = userInfo.getUsername();
         LOG.info("Getting hashes infos -> " + username);
-        
-        final Optional<Hash> hash = hashService.findHashFor(username);
-        userInfo.setHash(hash.get().getHash());
+
+        final HashDto hash = hashService.findHashFor(username);
+        userInfo.setHash(hash.getHash());
 
         return ResponseEntity.ok(new UserInfo(usernameOpt.get()));
     }

@@ -1,4 +1,4 @@
-package com.puc.wireless.digital.desk.hash.repository;
+package com.puc.wireless.digital.desk.hash.repositories;
 
 import java.util.Optional;
 
