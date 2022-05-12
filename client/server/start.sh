@@ -1,5 +1,7 @@
 cd ../ui/client-ui
 
+npm i
+
 ng build
 
 cd ../../server/
