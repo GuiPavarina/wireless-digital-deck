@@ -37,7 +37,7 @@ function recoverShortcutsFor(user) {
                         key: shortcut.shortcut_key,
                         app: shortcut.application_name,
                         name: shortcut.shortcut_name,
-                        modifiers: shortcut.modifiers.split(','),
+                        modifiers: shortcut.modifiers.toLowerCase().split(','),
                     }
                 });
                 resolve(deck);
