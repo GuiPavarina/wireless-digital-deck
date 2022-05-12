@@ -6,7 +6,13 @@
                 <div class="hash-text" *ngIf="userinfo">O seu HASH é: {{userinfo.hash}}</div>
             </li>
         </ul>
-        <div class="hash-text" *ngIf="userinfo">{{userinfo.username}}</div>
+        <a href="assets/client.tar.gz"
+            class="btn btn-success"
+            target="_blank"
+            download="client.tar.gz"
+            style="margin-right: 20px;"
+        >Download do Client da Aplicação</a>
+        <div class="hash-text" *ngIf="userinfo">Usuário: {{userinfo.username}}</div>
     </div>
 
 </nav>
@@ -14,41 +20,55 @@
 
     <div class="row">
 
-        <div class="col-sm-12 col-md-6 mt-3">
-            <form [formGroup]="shortcutForm" (ngSubmit)="onSubmit()">
-                <div class="form-group">
-                    <label for="applicationName">Nome do Atalho</label>
-                    <input type="text" class="form-control" formControlName="shortcutName" id="shortcutName"
-                        placeholder="Nome do atalho">
+        <div class="col-sm-12 col-md-4 mt-3">
+
+            <div class="row" style="margin-left: 15px; margin-right: 15px;">
+                <div class="col-sm-12 col-md-12 card">
+                    <form [formGroup]="shortcutForm" (ngSubmit)="onSubmit()" style=" padding: 10px;">
+                        <div class="form-group">
+                            <label for="applicationName">Nome do Atalho</label>
+                            <input type="text" class="form-control" formControlName="shortcutName" id="shortcutName"
+                                placeholder="Nome do atalho">
+                        </div>
+                        <div class="form-group">
+                            <label for="applicationName">Nome da Aplicação</label>
+                                <select
+                                    class="form-select"
+                                    formControlName="applicationName"
+                                >
+                                <option value="teams">Teams</option>
+                                <option value="discord">Discord</option>
+                              </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="key">Tecla</label>
+                            <input type="text" maxlength="1" class="form-control" formControlName="key" id="key" placeholder="Tecla">
+                        </div>
+                        <div class="form-group">
+                            <label for="key">Ordem</label>
+                            <input type="number" class="form-control" formControlName="order" id="order" placeholder="Ordem do atalho">
+                        </div>
+                        <div class="form-group">
+                            <label>Teclas Modificadoras</label>
+                            <div *ngFor="let choice of modifiers; let i=index" class="form-group">
+                                <label>
+                                    <input type="checkbox" [value]="choice.shortcut" (change)="onCheckChange($event)">
+                                    {{choice.shortcut}}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" value="">Salvar</button>
+                        </div>
+                    </form>
+                    <p *ngIf="error"><strong style="color: rgb(209, 47, 47);">O formulário está inválido</strong></p>
                 </div>
-                <div class="form-group">
-                    <label for="applicationName">Nome da Aplicação</label>
-                    <input type="text" class="form-control" formControlName="applicationName" id="applicationName"
-                        placeholder="Teams ou Discord">
-                </div>
-                <div class="form-group">
-                    <label for="key">Tecla</label>
-                    <input type="text" class="form-control" formControlName="key" id="key" placeholder="Tecla">
-                </div>
-                <div class="form-group">
-                    <label for="key">Ordem</label>
-                    <input type="text" class="form-control" formControlName="order" id="order" placeholder="Ordem do atalho">
-                </div>
-                <div *ngFor="let choice of modifiers; let i=index" class="form-group">
-                    <label>
-                        <input type="checkbox" [value]="choice.shortcut" (change)="onCheckChange($event)">
-                        {{choice.shortcut}}
-                    </label>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary" value="">Salvar</button>
-                </div>
-            </form>
+            </div>
         </div>
 
-        <div class="col-sm-12 col-md-6 mt-3">
+        <div class="col-sm-12 col-md-8 mt-3">
             <div class="row">
-                <div class="col-md-6" *ngFor="let shortcut of shortcuts;">
+                <div class="col-md-4" *ngFor="let shortcut of shortcuts;">
                     <div class="card mb-4 rounded-3 shadow-sm">
                       <div class="card-header py-3">
                         <h4 class="my-0 fw-normal">{{shortcut.applicationName}}</h4>

@@ -10,6 +10,8 @@ import { ShorcutService, Shortcut } from '../services/shorcut.service';
 })
 export class HomeComponent implements OnInit {
 
+  error: boolean = false;
+
   userinfo: UserInfo;
 
   shortcutForm: FormGroup = null;
@@ -34,7 +36,7 @@ export class HomeComponent implements OnInit {
 
     this.shortcutForm = this.formBuilder.group({
       key: ['', Validators.required],
-      applicationName: [''],
+      applicationName: ['', Validators.required],
       shortcutName: ['', Validators.required],
       order: ['', Validators.required],
       modifiers: this.formBuilder.array([
@@ -90,6 +92,13 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit() {
+
+    if(this.shortcutForm.invalid) {
+      this.error = true;
+      return;
+    }
+    this.error = false;
+
     this.shortcutService.addShortcut(
       new Shortcut(
         this.form['order'].value,

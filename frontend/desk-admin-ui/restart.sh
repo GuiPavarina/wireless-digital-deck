@@ -1,3 +1,11 @@
+cd ../../client/server/
+
+./build.sh
+
+cd ../../frontend/desk-admin-ui/
+
+cp ../../client/server/client.tar.gz src/assets/
+
 npm install
 
 ng build --prod

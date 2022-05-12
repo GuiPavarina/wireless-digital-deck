@@ -35,6 +35,6 @@ apiRouter.get(`${apiVersion}/shortcut/:id`, (req, res) => {
     }
 });
 
-apiRouter.get('*', express.static('../ui/client-ui/dist/client-ui'));
+apiRouter.get('*', express.static('dist/client-ui'));
 
 module.exports = apiRouter;

@@ -6,4 +6,6 @@ cd ../../server/
 
 cp -r ../ui/client-ui/dist/client-ui dist/
 
-node server.js
+tar -czvf client.tar.gz api db dist .env package.json server.js 
+
+
