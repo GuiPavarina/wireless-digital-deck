@@ -23,8 +23,9 @@ Os passos para utilização da plataforma são os seguintes: <br />
 3. Cadastrar os atalhos desejados;
 4. Realizar o download do client e executar na máquina desejada.
 <br />
+
 ### **1. Realizando o primeiro acesso**
-Clicando [neste link](http://168.119.240.184:8000/admin), é possível verificar a primeira página da plataforma, onde é possível realizar o cadastro:<br />
+Clicando [neste link,](http://168.119.240.184:8000/admin) é possível verificar a primeira página da plataforma, onde é possível realizar o cadastro:<br />
 ![login](docs/img/login.png)<br />
 ### **2. Cadastrando uma conta na plataforma**
 A tela de registro necessita de informações básicas para finalização:<br />
